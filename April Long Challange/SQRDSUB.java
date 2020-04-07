@@ -2,50 +2,78 @@ import java.io.*;
 import java.util.*;
 import java.math.BigInteger;
 
-public class SQRDSUB{
+class Codechef{
 
-
-
-    static boolean isGood(ArrayList<Integer> arrli){
-        int n = 1;
-        //System.out.print("\n"+arrli);
-        while(!arrli.isEmpty()){
-          n *= arrli.remove(0);
+    static boolean isGood(int n){
+      //System.out.println(n);
+        if(n%2 != 0){
+          return true;
         }
-        //System.out.print(" : "+n);
-        for (long i = 1; i <= n; i++)
-          for (long j = 0; j < i; j++){
-                //System.out.println(" "+i + "^2 - "+ j + "^2 = "+Math.abs(j * j - i * i));
-                if (Math.abs(j * j - i * i) == n) {
-                    //System.out.print(" "+i + "^2 - "+ j + "^2 = "+Math.abs(j * j - i * i));
-                    return true;
+        for (int i=1; i<=Math.sqrt(n); i++)
+        {
+            if (n%i==0)
+            {
+              double z = n + (i*i);
+              double y = Math.sqrt(z);
+              if(((y - Math.floor(y)) == 0)){
+                int a = (int)y;
+                //System.out.print("    "+i+" - "+z+" - "+a);
+                if((a+i)*(a-i) == n){
+                  return true;
                 }
-          }
-
+              }
+            }
+        }
         return false;
     }
+    static int n = 1;
+    static int count = 0;
+    static int sqrdsub(int []arr, int start, int end)
+    {
+        if (end == arr.length)
+            return 0;
 
-    static int sqrdsub(int a[], int n){
-        ArrayList<Integer> arrli = new ArrayList<Integer>();
-        int count = 0;
-        for (int i=0; i <n; i++)
+        else if (start > end)
+            sqrdsub(arr, 0, end + 1);
+
+        else
         {
-            for (int j=i; j<n; j++)
-            {
-                arrli.clear();
-                for (int k=i; k<=j; k++){
-                    arrli.add(a[k]);
-                }
-                if(isGood(arrli))
-                      count++;
-
+            n = 1;
+            for (int i = start; i < end; i++){
+                n*= arr[i];
             }
+            n*=arr[end];
+            if(isGood(n))
+                  count++;
+            sqrdsub(arr, start + 1, end);
 
         }
+
         return count;
     }
 
+    // static int sqrdsub(int a[], int n){
+    //     ArrayList<Integer> arrli = new ArrayList<Integer>();
+    //     int count = 0;
+    //     for (int i=0; i <n; i++)
+    //     {
+    //         for (int j=i; j<n; j++)
+    //         {
+    //             arrli.clear();
+    //             for (int k=i; k<=j; k++){
+    //                 arrli.add(a[k]);
+    //             }
+    //             if(isGood(arrli))
+    //                   count++;
+    //
+    //         }
+    //
+    //     }
+    //     return count;
+    // }
+
     public static void main(String[] args) {
+      try{
         InputReader in = new InputReader(System.in);
         PrintWriter w = new PrintWriter(System.out);
 
@@ -56,13 +84,18 @@ public class SQRDSUB{
             int n = in.nextInt();
             int a[] = new int[n];
             a = in.nextIntArray(n);
-            res[i++] = sqrdsub(a, n);
+            n = 1;
+            count = 0;
+            res[i++] = sqrdsub(a, 0, 0);
         }
         for (int x : res) {
           w.println(x);
         }
 
         w.close();
+      }catch(Exception e){
+
+      }
     }
 
     static class InputReader {

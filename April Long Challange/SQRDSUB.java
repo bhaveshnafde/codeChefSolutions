@@ -26,51 +26,25 @@ class Codechef{
         }
         return false;
     }
-    static int n = 1;
-    static int count = 0;
-    static int sqrdsub(int []arr, int start, int end)
-    {
-        if (end == arr.length)
-            return 0;
 
-        else if (start > end)
-            sqrdsub(arr, 0, end + 1);
-
-        else
+    static int sqrdsub(int a[], int n){
+        int count = 0;
+        for (int i = 1; i <= n ; i++)
         {
-            n = 1;
-            for (int i = start; i < end; i++){
-                n*= arr[i];
+            for (int j = 0; j < k; j++)
+            {
+                int sum = 1;
+                for (int k=i; k<=j; k++){
+                    sum *= a[k];
+                }
+                if(isGood(sum))
+                      count++;
+
             }
-            n*=arr[end];
-            if(isGood(n))
-                  count++;
-            sqrdsub(arr, start + 1, end);
 
         }
-
         return count;
     }
-
-    // static int sqrdsub(int a[], int n){
-    //     ArrayList<Integer> arrli = new ArrayList<Integer>();
-    //     int count = 0;
-    //     for (int i=0; i <n; i++)
-    //     {
-    //         for (int j=i; j<n; j++)
-    //         {
-    //             arrli.clear();
-    //             for (int k=i; k<=j; k++){
-    //                 arrli.add(a[k]);
-    //             }
-    //             if(isGood(arrli))
-    //                   count++;
-    //
-    //         }
-    //
-    //     }
-    //     return count;
-    // }
 
     public static void main(String[] args) {
       try{
@@ -84,9 +58,7 @@ class Codechef{
             int n = in.nextInt();
             int a[] = new int[n];
             a = in.nextIntArray(n);
-            n = 1;
-            count = 0;
-            res[i++] = sqrdsub(a, 0, 0);
+            res[i++] = sqrdsub(a, n);
         }
         for (int x : res) {
           w.println(x);

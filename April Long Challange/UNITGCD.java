@@ -29,7 +29,7 @@ class Codechef{
 			else	return false;
 		}
 
-		public static void pair(ArrayList<Integer> arr, ArrayList<ArrayList<Integer>> x){
+		public static void pair(ArrayList<Integer> arr){
 			int n = arr.size();
 			if(n == 1){
 				x.add(arr);

@@ -39,7 +39,7 @@ class Codechef{
             arr[i]  = temp;
           }
         }
-        if(isif){
+        if(!isif){
           break;
         }
       }

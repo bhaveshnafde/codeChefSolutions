@@ -13,29 +13,25 @@ import java.util.*;
             int n = in.nextInt();
             int arr[] = new int[n];
             arr = in.nextIntArray(n);
-            int res = mexum(arr, n);
+            int res = powerSet(arr, n);
             w.println(ans);
         }
         w.close();
     }
 
-    int mexum(int arr[], int n){
+    static ArrayList<Integer> arrli = new ArrayList<Integer>();
 
-    }
-
-    static ArrayList<Integer> arrli = new ArrayList<String>();
-
-    static ArrayList<Integer> powerSet(String str)
+    static ArrayList<Integer> powerSet(int arr[], int n)
     {
         arrli.clear();
-        powerset(str, "", 0);
-        return arrli;
+        powerset(arr, arrli, 0);
+        System.out.println(arrli);
     }
 
-    static void powerset(String str, String curr, int index)
+    static void powerset(int arr[], ArrayList<Integer> arrli, int index)
     {
-        if(index == str.length()){
-            arrli.add(curr);
+        if(index == arr.length()){
+            arrli.add(arrli);
             return ;
         }
         powerset(str, curr, index+1);

@@ -2,6 +2,32 @@ import java.io.*;
 import java.util.*;
 
 class Codechef{
+// 1 2 1 2
+    public static void covid(int arr[], int n){
+      int min = 0, max = 1;
+      int curr = 1;
+      for(int i = 1; i < n; i++){
+        if((arr[i] - arr[i-1]) <= 2){
+          curr++;
+        }else{
+          max = Math.max(curr, max);
+          if(min == 0){
+            min = max;
+          }else{
+            min = Math.min(min, curr);
+          }
+          curr = 1;
+        }
+      }
+      // 1 1
+      max = Math.max(curr, max);
+      if(min == 0){
+        min = max;
+      }else{
+        min = Math.min(min, curr);
+      }
+      System.out.println(min+" "+max);
+    }
 
     public static void main(String[] args) {
       try{
@@ -11,25 +37,15 @@ class Codechef{
         int t = in.nextInt();
 
         while (t-- > 0) {
-            int a[][] = new int[3][3];
-            for (int i = 0; i < 3; i++)
-                a[i] = in.nextIntArray(3);
-            long ans = 0;
-            for (int i = 0; i < 3; i++) {
-                long b = 0, c = 0;
-                for (int j = 0; j < 3; j++) {
-                    b += a[i][j];
-                    c += a[j][i];
-                }
-                ans = Math.max(ans, b - 1 + (b%2));
-                ans = Math.max(ans, c - 1 + (c%2));
-            }
-            w.println(ans);
+            int n = in.nextInt();
+            int arr[] = new int[n];
+            arr = in.nextIntArray(n);
+            covid(arr, n);
         }
 
         w.close();
       }catch(Exception E){
-        System.out.println(E);
+        // System.out.println(E);
       }
     }
 

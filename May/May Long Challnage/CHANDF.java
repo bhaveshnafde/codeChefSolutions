@@ -3,6 +3,15 @@ import java.util.*;
 
 class Codechef{
 
+    public static int covid(int x, int y, int l, int r){
+      for(int z =r; z >= l; z--){
+        if((z&1) == 0){
+          return z-1;
+        }
+      }
+      return -1;
+    }
+
     public static void main(String[] args) {
       try{
         InputReader in = new InputReader(System.in);
@@ -11,25 +20,15 @@ class Codechef{
         int t = in.nextInt();
 
         while (t-- > 0) {
-            int a[][] = new int[3][3];
-            for (int i = 0; i < 3; i++)
-                a[i] = in.nextIntArray(3);
-            long ans = 0;
-            for (int i = 0; i < 3; i++) {
-                long b = 0, c = 0;
-                for (int j = 0; j < 3; j++) {
-                    b += a[i][j];
-                    c += a[j][i];
-                }
-                ans = Math.max(ans, b - 1 + (b%2));
-                ans = Math.max(ans, c - 1 + (c%2));
-            }
-            w.println(ans);
+            int arr[] = new int[4];
+            arr = in.nextIntArray(4);
+            int res = covid(arr[0], arr[1], arr[2], arr[3]);
+            w.println(res);
         }
 
         w.close();
       }catch(Exception E){
-        //System.out.println(E);
+        System.out.println(E);
       }
     }
 

@@ -3,34 +3,62 @@ import java.util.*;
 
 class Codechef{
 
-    static int checkBit(int pattern, int arr[], int n)
+    static boolean sorted(int arr[], int n)
     {
-      int count = 0;
-      for (int i = 0; i < n; i++)
-          if ((pattern & arr[i]) == pattern)
-              count++;
-      return count;
-    }
-    
-    static int maxAND (int arr[], int n)
-    {
-      int res = 0, count;
-      for (int bit = 31; bit >= 0; bit--)
-      {
-          count = checkBit(res | (1 << bit), arr, n);
-          if ( count >= 2 )
-              res |= (1 << bit);
-      }
-      return res;
+      // Array has one or no element
+      if (n == 0 || n == 1)
+          return true;
+
+      for (int i = 1; i < n; i++)
+
+          // Unsorted pair found
+          if (arr[i - 1] > arr[i])
+              return false;
+
+      // No unsorted pair found
+      return true;
     }
 
-    public static int covid(int x, int y, int l, int r){
-      for(int z =r; z >= l; z--){
-        if((z&1) == 0){
-          return z-1;
+    public static void trplsort(int arr[], int n, int k){
+      int a=-1,b=-1,c=-1;
+      for(int i = 0; i < n; i++){
+        if(arr[i] != i+1){
+          if(a == -1){
+            a = i;
+          }else if(b == -1){
+            b = i;
+          }else if(c == -1){
+            c = i;
+          }else{
+            System.out.println(-1);
+            return;
+          }
         }
       }
-      return -1;
+      System.out.println(a+" "+b+" "+c);
+      String st = "";
+      int m = 0;
+      int trp[] = new int[3];
+      trp[0] = arr[a];
+      trp[1] = arr[b];
+      trp[2] = arr[c];
+      for(int j = 0; j < k; j++){
+        int temp = trp[2];
+        trp[2] = trp[1];
+        trp[1] = trp[0];
+        trp[0] = temp;
+        for(int i = 0; i < 3; i++){
+          st += trp[i];
+          st += " ";
+        }
+        m++;
+        if(sorted(trp, 3)){
+          System.out.println(m);
+          break;
+        }
+        st += "\n";
+      }
+      System.out.println(st);
     }
 
     public static void main(String[] args) {
@@ -41,10 +69,13 @@ class Codechef{
         int t = in.nextInt();
 
         while (t-- > 0) {
-            int arr[] = new int[4];
-            arr = in.nextIntArray(4);
-            int res = covid(arr[0], arr[1], arr[2], arr[3]);
-            w.println(res);
+            int arr[] = new int[2];
+            arr = in.nextIntArray(2);
+            int n = arr[0];
+            int k = arr[1];
+            int a[] = new int[n];
+            a = in.nextIntArray(n);
+            trplsort(a, n, k);
         }
 
         w.close();

@@ -3,62 +3,33 @@ import java.util.*;
 
 class Codechef{
 
-    static boolean sorted(int arr[], int n)
-    {
-      // Array has one or no element
-      if (n == 0 || n == 1)
-          return true;
-
-      for (int i = 1; i < n; i++)
-
-          // Unsorted pair found
-          if (arr[i - 1] > arr[i])
-              return false;
-
-      // No unsorted pair found
-      return true;
-    }
-
     public static void trplsort(int arr[], int n, int k){
-      int a=-1,b=-1,c=-1;
-      for(int i = 0; i < n; i++){
-        if(arr[i] != i+1){
-          if(a == -1){
-            a = i;
-          }else if(b == -1){
-            b = i;
-          }else if(c == -1){
-            c = i;
-          }else{
-            System.out.println(-1);
-            return;
-          }
-        }
-      }
-      System.out.println(a+" "+b+" "+c);
       String st = "";
       int m = 0;
-      int trp[] = new int[3];
-      trp[0] = arr[a];
-      trp[1] = arr[b];
-      trp[2] = arr[c];
-      for(int j = 0; j < k; j++){
-        int temp = trp[2];
-        trp[2] = trp[1];
-        trp[1] = trp[0];
-        trp[0] = temp;
-        for(int i = 0; i < 3; i++){
-          st += trp[i];
-          st += " ";
+      while(k-->0){
+        int a=-1,b=-1,c=-1;
+
+        for(int i = 0; i < n; i++){
+          if(arr[i] != i+1){
+            if(a == -1){
+              a = i;
+            }else if(b == -1){
+              b = i;
+            }else if(c == -1){
+              c = i;
+            }else{
+              int temp = arr[c];
+              arr[c] = arr[b];
+              arr[b] = arr[a];
+              arr[a] = temp;
+              a=-1;b=-1;c=-1;
+            }
+          }
         }
-        m++;
-        if(sorted(trp, 3)){
-          System.out.println(m);
-          break;
-        }
-        st += "\n";
+        for(int x : arr){
+          System.out.print(x+" ");
+        }System.out.println();
       }
-      System.out.println(st);
     }
 
     public static void main(String[] args) {
@@ -80,7 +51,7 @@ class Codechef{
 
         w.close();
       }catch(Exception E){
-        System.out.println(E);
+        //System.out.println(E);
       }
     }
 
